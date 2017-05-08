@@ -7,9 +7,13 @@
 
 #include "targetver.h"
 
-#include <stdio.h>
+#include <iostream>
 #include <tchar.h>
-
+#include <stdlib.h>
+#include <vector>
+#include <algorithm>
+#include "BST.h"
+using namespace std;
 
 
 // TODO: reference additional headers your program requires here
