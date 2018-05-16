@@ -2,7 +2,10 @@
 #include <stack>
 # include <stdlib.h>
 #include <queue>
+#include <cmath>
 using namespace std;
+
+# define errorCode -5
 
 
 struct binaryTreeNode
@@ -11,6 +14,14 @@ struct binaryTreeNode
 	binaryTreeNode * left;
 	binaryTreeNode * right;
 	//int depth;
+};
+
+struct binaryTreeDepthNode
+{
+	int val;
+	binaryTreeDepthNode * left;
+	binaryTreeDepthNode * right;
+	int depth;
 };
 
 struct linkedListNode{
@@ -185,7 +196,7 @@ void addNodeBST(binaryTreeNode * root, binaryTreeNode * node){
 }
 
 
- binaryTreeNode * minBSTHelper(binaryTreeNode * root, vector<int> sortedNums, int low, int high){
+binaryTreeNode * minBSTHelper(binaryTreeNode * root, vector<int> sortedNums, int low, int high){
 
  	if (high < low) return root;
  	// Recursive case is to find midpoint
@@ -200,16 +211,11 @@ void addNodeBST(binaryTreeNode * root, binaryTreeNode * node){
  		minBSTHelper(root, sortedNums, low, mid-1);
  		minBSTHelper(root, sortedNums, mid+1, high);
  	return root;
-
-
-
 }
 
 binaryTreeNode * minBST(vector<int> sortedNums){
 	return minBSTHelper(NULL, sortedNums, 0, sortedNums.size()-1);
 }
-
-
 
 
 void minBSTTest(){
@@ -218,10 +224,47 @@ void minBSTTest(){
 	binaryTreeNode * bst = minBST(testVector);
 	inOrderPrint(bst);
 }
+int max(int v1, int v2){
+    if (v1 > v2) return v1;
+    return v2;
+}
+
+int getHeightHelper(binaryTreeNode * root, int height){
+    // don't care about NULL 
+    if (root == NULL) return 0;
+    // Compare to height of right and left
+    int heightLeft = getHeight(root->left, height+1);
+    int heightRight = getHeight(root->right, height+1);
+    return max(height,max(heightLeft, heightRight));
+}
+
+int getHeight(binaryTreeNode * root){
+	if (root == NULL) return -1;
+	return getHeightHelper(root, 0);
+}
+
+
+int isBalancedHelper(binaryTreeNode * root){
+	if (root == NULL) return -1;
+	
+	int leftHeight = isBalancedHelper(root->left);
+	int rightHeight = isBalancedHelper(root->right);
+	if ( leftHeight == errorCode) return errorCode;
+	if ( right == errorCode) return errorCode;
+	
+	if(abs(rightHeight - leftHeight) > 1) return errorCode;
+
+	return max(leftHeight, rightHeight) + 1;
+
+}
+
+bool isBalanced(binaryTreeDepthNode * root){
+	return isBalancedHelper(root) != errorCode;
+}
 
 
 int main(void){
-	minBSTTest();
+	//minBSTTest();
 
 
 	return 0;
