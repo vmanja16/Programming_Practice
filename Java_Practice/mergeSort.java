@@ -1,18 +1,23 @@
-
+import java.util.Arrays;
 
 public class mergeSort {
 
     private static void merge(int [] arr, int low, int high){
 
         int mid = (high + low)/2;
-
-        // Allocate space for temporary arrays
-        int [] lowHalf = new int[mid-low+1];
-        int [] highHalf= new int[high-mid];
         int j = 0;
 
-        // Copy halves from original to tempArray
+        // Allocate space for temporary arrays
+        int [] lowHalf = Arrays.copyOfRange(arr, low, mid+1);
+        int [] highHalf = Arrays.copyOfRange(arr,mid+1, high+1);
 
+        /*
+        // Allocate space for temporary arrays
+
+        int [] lowHalf = new int[mid-low+1];
+        int [] highHalf= new int[high-mid];
+
+        // Copy halves from original to tempArray
         for (int i = low; i < low+lowHalf.length; i++){
             lowHalf[j] = arr[i];
             j++;
@@ -24,6 +29,7 @@ public class mergeSort {
             highHalf[j] = arr[i];
             j++;
         }
+        */
 
         // compare and merge
         j = low;
@@ -42,6 +48,8 @@ public class mergeSort {
         }
 
         // copy any tempArray data that wasnt copied above
+
+
         for (int i = low; i < lowHalf.length; i++){
             arr[j] = lowHalf[i];
             j++;
@@ -51,6 +59,7 @@ public class mergeSort {
             j++;
         }
     }
+
 
 
     private static void mSort(int [] arr, int low, int high){
