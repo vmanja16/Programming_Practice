@@ -12,8 +12,8 @@ void inc(int * a){*a = *a+1;}
 void dec(int * a){*a = *a-1;}
 // Increment/Decrement s if id is even/odd
 void functionChooser(int id, int * var){
-	static void(*fptr[])(int *) = {&inc, &dec};
-	return (fptr[id & 1])(var);
+	static void(*fptr[])(int *) = {inc, dec};
+	(*fptr[id & 1])(var);
 }
 /* End function pointers*/
 
