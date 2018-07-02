@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+# define setBit(num,pos) (num | (1 << pos))
+# define clearBit(num,pos) (num & ~(1 << pos))
+# define toggleBit(num,pos) (num ^ (1 << pos))
+
 
 unsigned int reverseAllBits(unsigned int number){
 	unsigned int reversedNumber = 0;
@@ -19,17 +23,9 @@ unsigned int getOnesMask(int msi, int lsi){
 	return mask;
 }
 unsigned int getZerosMask(int msi, int lsi){
-	return ~getOnesMask;
+	return ~getOnesMask(msi, lsi);
 }
 
-
-/* Reverses bits between the most significant and least signifant indexes of the integer 
-   Assumes 0-indexing
-  
-unsigned int reverseBits(unsigned int number, int msi, int lsi){
-	return (number & (~mask))  | (reversedNumber & mask);	
-}
- */
 /* Swaps the even and odd index bits in a number */
 int pairwiseSwap(int number){
 	return ((number & 0xAAAAAAAA) >> 1) | ((number & 0x55555555) << 1);
@@ -39,9 +35,13 @@ int pairwiseSwap(int number){
 int main(void){
 	unsigned int num =  0xAFFFF;
 	int num2 = 0x8888AAAA;
-
+	int test_var = 0b0010;
+	/* Test Macros */
+	printf("%x\n", setBit(test_var, 3));
+	printf("%x\n", clearBit(test_var, 1));
+	printf("%x\n", setBit(test_var, 3));
+	/* Test functions */
 	printf("%x\n", reverseAllBits(num2));
-	printf("%x\n", reverseBits(num2,15,0));
 	printf("%x\n", reverseAllBits(num));
 	printf("%x\n", pairwiseSwap(num2));
 
