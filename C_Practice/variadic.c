@@ -6,6 +6,9 @@
 #define MIN_ELEMENT 1
 #define MAX_ELEMENT 1000000
 
+#define getMax(a,b) ((a>b) ? a : b)
+#define getMin(a,b) ((a<b) ? a : b)
+
 int sum (int count,...) {
     va_list args;
     va_start(args,count);
@@ -25,7 +28,7 @@ int min(int count,...) {
     va_start(args,count);
      for (int i = 0; i < count; i++){
         num = va_arg(args,int);
-        minimum = (minimum < num) ? minimum : num;
+        minimum = getMin(minimum,num);
      }
 
     return minimum;
@@ -39,7 +42,7 @@ int max(int count,...) {
     va_start(args,count);
     for (int i = 0; i < count; i++){
         num = va_arg(args,int);
-        maximum = (maximum > num) ? maximum : num;
+        maximum = getMax(maximum,num);
      }
 
     return maximum;
