@@ -11,14 +11,13 @@
 # define toggleBit(num,pos) (num ^ (1 << pos))
 
 
-unsigned int reverseAllBits(unsigned int number){
+unsigned int reverse32(unsigned int number){
 	unsigned int reversedNumber = 0;
-	int NUM_BITS_INDEX = sizeof(number) * 8 - 1;
 	int i = 0;
-	while(number > 0){
-		if (number & 1)  reversedNumber |=  (1<<(NUM_BITS_INDEX-i));
+	for (i = 0; i < 32; i ++){
+		reversedNumber <<= 1;
+		reversedNumber |= (number & 1);
 		number >>= 1; 
-		i++; 
 	}
 	return reversedNumber;
 }
@@ -47,16 +46,16 @@ int pairwiseSwap(int number){
 
 
 int main(void){
-	unsigned int num =  0xAFFFF;
-	int num2 = 0x8888AAAA;
+	unsigned int num =  0x000AFFFF;
+	unsigned int num2 = 0x8888AAAA;
 	int test_var = 0b0010;
 	/* Test Macros */
 	printf("%x\n", setBit(test_var, 3));
 	printf("%x\n", clearBit(test_var, 1));
 	printf("%x\n", setBit(test_var, 3));
 	/* Test functions */
-	printf("%x\n", reverseAllBits(num2));
-	printf("%x\n", reverseAllBits(num));
+	printf("%x\n", reverse32(num2));
+	printf("%x\n", reverse32(num));
 	printf("%x\n", pairwiseSwap(num2));
 
 
