@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+// Bit Patterns
+#define ALT   0xAAAAAAAA
+#define ALT_2 0xCCCCCCCC
+#define ALT_4 0xF0F0F0F0
+
+
 # define setBit(num,pos) (num | (1 << pos))
 # define clearBit(num,pos) (num & ~(1 << pos))
 # define toggleBit(num,pos) (num ^ (1 << pos))
@@ -15,6 +21,14 @@ unsigned int reverseAllBits(unsigned int number){
 		i++; 
 	}
 	return reversedNumber;
+}
+
+
+int reverse_8(unsigned int num){
+    num = ((num & ALT)   >> 1) | ((num<<1) & ALT);
+    num = ((num & ALT_2) >> 2) | ((num<<2) & ALT_2);
+    num = ((num & ALT_4) >> 4) | ((num<<4) & ALT_4);
+    return num;
 }
 
 unsigned int getOnesMask(int msi, int lsi){
